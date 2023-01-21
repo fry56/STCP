@@ -15,7 +15,10 @@
 
     void stcp_receive(int type);
     bool stcp_send(int pid, stcp_packet *packet);
-    void stcp_destroy_packet();
+    void stcp_destroy_packet(stcp_packet *packet);
+    bool stcp_packet_drop();
+
+    void stcp_time_out_update();
 
     stcp_packet *stcp_create_packet(char type, void *datas, int data_size);
 

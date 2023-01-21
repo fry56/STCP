@@ -15,6 +15,18 @@
 
 extern stcp *stcp_datas;
 
+static void stcp_init_value(stcp *new_stcp)
+{
+    new_stcp->linked_puid = -1;
+    new_stcp->status = STATUS_WAITING_CONNECTION;
+    new_stcp->temp_received = NULL;
+    new_stcp->temp_sended = NULL;
+    new_stcp->datas_entering = false;
+    new_stcp->retry = 0;
+    new_stcp->time_out = TIME_OUT;
+    stcp_datas = new_stcp;
+}
+
 int stcp_init()
 {
     stcp *new_stcp = malloc(sizeof(stcp));
@@ -31,10 +43,6 @@ int stcp_init()
     action.sa_flags = 0;
     sigaction(SIGUSR1, &action, NULL);
     sigaction(SIGUSR2, &action, NULL);
-    new_stcp->linked_puid = -1;
-    new_stcp->status = STATUS_WAITING_CONNECTION;
-    new_stcp->packet = NULL;
-    new_stcp->time_out = TIME_OUT;
-    stcp_datas = new_stcp;
+    stcp_init_value(new_stcp);
     return 1;
 }

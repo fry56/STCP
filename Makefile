@@ -15,7 +15,8 @@ SRC = \
 	src/stcp_create_packet.c \
 	src/stcp_sync.c \
 	src/utils/data_to_binary.c \
-	src/stcp_time_out.c
+	src/stcp_time_out.c \
+	src/stcp_packet_drop.c
 
 OBJ = $(SRC:.c=.o)
 

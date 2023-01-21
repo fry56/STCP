@@ -12,11 +12,10 @@
 
 stcp *stcp_datas;
 
-void stcp_destroy_packet()
+void stcp_destroy_packet(stcp_packet *packet)
 {
-    if (stcp_datas->packet == NULL)
+    if (packet == NULL)
         return;
-    free(stcp_datas->packet->body);
-    free(stcp_datas->packet);
-    stcp_datas->packet = NULL;
+    free(packet->body);
+    free(packet);
 }

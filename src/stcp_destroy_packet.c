@@ -18,4 +18,5 @@ void stcp_destroy_packet()
         return;
     free(stcp_datas->packet->body);
     free(stcp_datas->packet);
+    stcp_datas->packet = NULL;
 }

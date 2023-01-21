@@ -11,6 +11,11 @@
     #include <stdbool.h>
 
     #define PACKET_SIZE 72
+    #define TIME_OUT 15
+
+    #define STATUS_WAITING_CONNECTION 0
+    #define STATUS_CONNECTED 1
+    #define STATUS_WAITING_HAND_CHECK 3
 
     typedef struct stcp_packet_header_t {
         char type;
@@ -30,13 +35,11 @@
 
     typedef struct stcp_s {
         int linked_puid;
-        bool waiting_data;
-        bool waiting_hand_check;
+        unsigned char status;
         stcp_packet *packet;
         char *buffer;
         int bits_received;
+        int time_out;
     } stcp;
-
-    extern stcp *stcp_datas;
 
 #endif //stcp_packet

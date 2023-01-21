@@ -32,9 +32,9 @@ int stcp_init()
     sigaction(SIGUSR1, &action, NULL);
     sigaction(SIGUSR2, &action, NULL);
     new_stcp->linked_puid = -1;
-    new_stcp->waiting_data = true;
-    new_stcp->waiting_hand_check = false;
+    new_stcp->status = STATUS_WAITING_CONNECTION;
     new_stcp->packet = NULL;
+    new_stcp->time_out = TIME_OUT;
     stcp_datas = new_stcp;
     return 1;
 }

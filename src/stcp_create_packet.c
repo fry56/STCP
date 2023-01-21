@@ -13,6 +13,7 @@
 stcp_packet *stcp_create_packet(char type, void *datas, int data_size)
 {
     stcp_packet *new_packet;
+
     if (data_size >= 4031)
         return NULL;
     if ((new_packet = malloc(sizeof(stcp_packet))) == NULL)

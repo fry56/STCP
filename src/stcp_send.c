@@ -9,12 +9,11 @@
 #include <t_string.h>
 #include <signal.h>
 #include <unistd.h>
-#include <t_mem.h>
 #include <stcp_functions.h>
 
 extern stcp *stcp_datas;
 
-void stcp_send_buffer(int pid, char *buffer)
+static void stcp_send_buffer(int pid, char *buffer)
 {
     for (; *buffer; buffer++) {
         if (*buffer == '1')
@@ -23,14 +22,15 @@ void stcp_send_buffer(int pid, char *buffer)
             kill(pid, SIGUSR1);
         usleep(10000);
     }
-    stcp_datas->waiting_hand_check = true;
+    stcp_datas->status = 1;
+    stcp_datas->time_out = TIME_OUT;
 }
 
 bool stcp_send(int pid, stcp_packet *packet)
 {
     char *buffer;
 
-    if (packet == NULL)
+    if (packet == NULL || stcp_datas->status == STATUS_WAITING_HAND_CHECK)
         return false;
     buffer = data_to_binary(&packet->header, sizeof(stcp_packet_header));
     buffer = tstr_concat(buffer, packet->body);
